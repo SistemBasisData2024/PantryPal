@@ -4,8 +4,11 @@ const dotenv = require("dotenv");
 
 const pool = require("./config/pg");
 const connectDatabase = require("./config/mongodb");
-const authRoutes = require('./routes/authRoutes');
-const productRoutes = require('./routes/productRoutes');
+const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
+const userRoutes  = require("./routes/userRoutes");
 
 dotenv.config();
 const PORT = process.env.PORT || 8080;
@@ -15,8 +18,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/auth', authRoutes);
-app.use('/products', productRoutes);
+app.use("/auth", authRoutes);
+app.use("/products", productRoutes);
+app.use("/order", orderRoutes);
+app.use("/payment", paymentRoutes);
+app.use("/user", userRoutes);
 
 connectDatabase();
 pool.connect().then(() => {

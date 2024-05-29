@@ -6,7 +6,6 @@ const authMiddleware = (allowedRoles) => (req, res, next) => {
   if (!authorization) return res.status(403).send('Token is required');
 
   const token = authorization.split(' ')[1];
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     if (!allowedRoles.includes(decoded.role)) {
@@ -14,7 +13,7 @@ const authMiddleware = (allowedRoles) => (req, res, next) => {
     }
     req.user = decoded;
     next();
-  } catch (err) {
+  } catch (error) {
     return res.status(401).send('Invalid token');
   }
 };
