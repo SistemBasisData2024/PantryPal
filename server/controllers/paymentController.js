@@ -26,6 +26,9 @@ const payOrder = async (req, res) => {
     );
     const currentBalance = balanceResult.rows[0].balance;
     const newBalance = Number(currentBalance) - Number(totalAmount);
+    if(newBalance < 0) {
+      res.status(400).json({ message: "Not enough balance" })
+    }
     await pool.query("UPDATE users SET balance = $1 WHERE user_id = $2", [
       newBalance,
       user_id,

@@ -3,4 +3,4 @@
 ##### Description
 - Purple entitiy: MongoDB
 - Blue entitiy: PostgreSQL
-![PantryPal App ERD](/kelengkapan/PantryPal%20App%20ERD.png)
+![PantryPal App ERD](/documents/PantryPal%20App%20ERD.png)

@@ -1,8 +1,9 @@
 const pool = require("../config/pg");
+const Cart = require("../models/CartModel")
 const payment_status = require("../utils/payment_status");
 const order_status = require("../utils/order_status");
 
-const getOrders = async (req, res) => {
+exports.getOrders = async (req, res) => {
   const user_id = req.user.id;
   try {
     const orders = await pool.query(
@@ -15,7 +16,7 @@ const getOrders = async (req, res) => {
   }
 };
 
-const getSupplierOrders = async (req, res) => {
+exports.getSupplierOrders = async (req, res) => {
   const user_id = req.user.id;
   try {
     const orders = await pool.query(
@@ -28,7 +29,7 @@ const getSupplierOrders = async (req, res) => {
   }
 };
 
-const getOrderAddress = async (req, res) => {
+exports.getOrderAddress = async (req, res) => {
   const order_id = req.params.orderId;
   try {
     const orderAddress = await pool.query(
@@ -44,7 +45,7 @@ const getOrderAddress = async (req, res) => {
   }
 };
 
-const makeOrder = async (req, res) => {
+exports.makeOrder = async (req, res) => {
   const user_id = req.user.id;
   const { products, method, total_amount, country, city, street } = req.body;
   if (products.length === 0 || !Array.isArray(products)) {
@@ -89,6 +90,14 @@ const makeOrder = async (req, res) => {
 
     await client.query("COMMIT");
 
+    // clear cart (MongoDB)
+    let cart = await Cart.findOne({ user_id: user_id })
+    if (!cart) {
+      cart = new Cart({ user_id: user_id, items: [] });
+      cart.save();
+    }
+    await cart.clearCart();
+
     res.status(201).json({ msg: "Order success", order_id: order_id });
   } catch (error) {
     await client.query("ROLLBACK");
@@ -98,7 +107,7 @@ const makeOrder = async (req, res) => {
   }
 };
 
-const cancelOrder = async (req, res) => {
+exports.cancelOrder = async (req, res) => {
   const user_id = req.user.id;
   const role = req.user.role;
   const order_id = req.params.orderId;
@@ -160,7 +169,7 @@ const cancelOrder = async (req, res) => {
   }
 };
 
-const acceptOrder = async (req, res) => {
+exports.acceptOrder = async (req, res) => {
   const user_id = req.user.id;
   const order_id = req.params.orderId;
   try {
@@ -189,7 +198,7 @@ const acceptOrder = async (req, res) => {
   }
 };
 
-const deliverOrder = async (req, res) => {
+exports.deliverOrder = async (req, res) => {
   const order_id = req.params.orderId;
   const user_id = req.user.id;
   try {
@@ -217,7 +226,7 @@ const deliverOrder = async (req, res) => {
   }
 };
 
-const completeOrder = async (req, res) => {
+exports.completeOrder = async (req, res) => {
   const order_id = req.params.orderId;
   const user_id = req.user.id;
 
@@ -274,15 +283,4 @@ const completeOrder = async (req, res) => {
     console.error(`Error completing order: ${error}`);
     res.status(500).json({ error: error.message });
   }
-};
-
-module.exports = {
-  makeOrder,
-  cancelOrder,
-  getOrders,
-  getSupplierOrders,
-  getOrderAddress,
-  acceptOrder,
-  deliverOrder,
-  completeOrder,
 };

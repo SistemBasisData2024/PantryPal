@@ -1,34 +1,45 @@
 const express = require("express");
 const authMiddleware = require("../middlewares/authMiddleware");
-const {
-  makeOrder,
-  cancelOrder,
-  getOrders,
-  getSupplierOrders,
-  getOrderAddress,
-  acceptOrder,
-  deliverOrder,
-  completeOrder
-} = require("../controllers/orderController");
+const orderRoutes = require("../controllers/orderController");
 const router = express.Router();
 
-router.get("/", authMiddleware(["user"]), getOrders);
-router.get("/myorders", authMiddleware(["supplier"]), getSupplierOrders);
+router.get("/", authMiddleware(["user"]), orderRoutes.getOrders);
+router.get(
+  "/myorders",
+  authMiddleware(["supplier"]),
+  orderRoutes.getSupplierOrders
+);
 router.get(
   "/orderaddress/:orderId",
   authMiddleware(["supplier"]),
-  getOrderAddress
+  orderRoutes.getOrderAddress
 );
 
-router.post("/makeorder", authMiddleware(["user"]), makeOrder);
+router.post(
+  "/makeorder", 
+  authMiddleware(["user"]), 
+  orderRoutes.makeOrder
+);
 
 router.put(
   "/cancelorder/:orderId",
   authMiddleware(["user", "supplier"]),
-  cancelOrder
+  orderRoutes.cancelOrder
 );
-router.put("/acceptorder/:orderId", authMiddleware(["supplier"]), acceptOrder);
-router.put("/deliverorder/:orderId", authMiddleware(["supplier"]), deliverOrder);
-router.put("/completeorder/:orderId", authMiddleware(["user"]), completeOrder);
+router.put(
+  "/acceptorder/:orderId",
+  authMiddleware(["supplier"]),
+  orderRoutes.acceptOrder
+);
+router.put(
+  "/deliverorder/:orderId",
+  authMiddleware(["supplier"]),
+  orderRoutes.deliverOrder
+);
+router.put(
+  "/completeorder/:orderId",
+  authMiddleware(["user"]),
+  orderRoutes.completeOrder
+);
 
 module.exports = router;

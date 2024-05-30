@@ -2,6 +2,7 @@ const pool = require("../config/pg");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
+const Cart = require("../models/CartModel");
 require("dotenv").config();
 
 const createToken = (user_id, role) => {
@@ -28,9 +29,13 @@ const register = async (req, res) => {
       return res.status(400).json({ error: "Email already in use"});
     }
     const result = await pool.query(
-      "INSERT INTO users (name, email, password, balance, role) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [name, email, hashedPassword, 0, role]
+      "INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *",
+      [name, email, hashedPassword, role]
     );
+    const user_id = result.rows[0].user_id;
+
+    const newCart = new Cart({ user_id: user_id, item: [] });
+    await newCart.save();
     res
       .status(201)
       .json({ message: "Register successfull", payload: result.rows[0] });
@@ -44,7 +49,9 @@ const login = async (req, res) => {
   if (!email || !password) {
     return res.status(400).json({ msg: "All fields must be filled" });
   }
-
+  if (!validator.isEmail(email)) {
+    throw Error("invalid email");
+  }
   try {
     const result = await pool.query("SELECT * FROM users WHERE email = $1", [
       email,
