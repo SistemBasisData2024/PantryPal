@@ -1,4 +1,5 @@
 const Food = require("../models/FoodModel");
+const Review = require("../models/ReviewModel");
 const Recipe = require("../models/RecipeModel");
 
 exports.getFood = async (req, res) => {
@@ -125,7 +126,7 @@ exports.deleteRecipe = async (req, res) => {
   const { recipeId } = req.params;
   try {
     await Recipe.findByIdAndDelete(recipeId);
-
+    await Review.findByIdAndDelete({ entityId: recipeId });
     res.status(200).json({ message: "Recipe succesfully deleted"});
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -1,4 +1,5 @@
 const pool = require("../config/pg");
+const Review = require("../models/ReviewModel");
 
 const productController = {
   getAllProducts: async (req, res) => {
@@ -44,7 +45,7 @@ const productController = {
     const user_id = req.user.id;
     try {
       const product = await pool.query(
-        "INSERT INTO product (name, description, brand, expired, stock, price, type, avg_rating, seller_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+        "INSERT INTO product (name, description, brand, expired, stock, price, type, avg_rating, seller_id, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
         [
           newProduct.name,
           newProduct.description,
@@ -55,6 +56,7 @@ const productController = {
           newProduct.type,
           newProduct.avg_rating,
           user_id,
+          newProduct.image,
         ]
       );
       const result = product.rows[0];
@@ -93,9 +95,10 @@ const productController = {
                 stock = $5, 
                 price = $6, 
                 type = $7, 
-                avg_rating = $8
+                avg_rating = $8,
+                image = $9
             WHERE 
-                product_id = $9
+                product_id = $10
             RETURNING *
         `,
         [
@@ -107,9 +110,13 @@ const productController = {
           data.price,
           data.type,
           data.avg_rating,
+          data.image,
           product_id,
         ]
       );
+
+      await Review.findByIdAndDelete({ entityId: product_id });
+
       res.status(200).json({
         message: "Product updated successfully",
         payload: updatedProduct,

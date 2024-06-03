@@ -3,7 +3,6 @@ const Review = require("../models/ReviewModel");
 const Recipe = require("../models/RecipeModel");
 
 const updateRating = async (entityId, entityType, rating) => {
-  console.log("entityId: ", entityId);
   const reviews = await Review.find({ entityId: entityId });
 
   if (entityType === "recipe") {
@@ -33,9 +32,9 @@ const updateRating = async (entityId, entityType, rating) => {
 exports.getReview = async (req, res) => {
   const entity_id = req.params.entityId;
   try {
-    const reviews = await Review.find({ entity_id: entity_id });
-    if(reviews === 0) {
-      return res.status(404).json({ error: "No reviews available" })
+    const reviews = await Review.find({ entityId: entity_id });
+    if(reviews.lenth === 0) {
+      return res.status(404).json({ message: "No reviews added" });
     }
     res.status(200).json(reviews);
   } catch (error) {
