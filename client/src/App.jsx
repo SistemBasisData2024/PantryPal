@@ -8,6 +8,7 @@ import Register from "./pages/Register.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
 import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
+import Reviews from "./pages/Reviews.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/" element={<Home/>} />
           <Route path="/product/:productId" element={<ProductDetail/>} />
+          <Route path="/reviews/:reviewId" element={<Reviews/>} />
         </Routes>
         <ToastContainer />
       </div>

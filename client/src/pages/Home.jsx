@@ -23,7 +23,7 @@ export default function Home() {
         console.log(response.data);
       } catch (error) {
         setIsLoading(false);
-        toast(`Error ${error}`, {position: "bottom-right"});
+        toast(`Error ${error}`, { position: "bottom-right" });
       }
     };
 
@@ -31,9 +31,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const filteredData = products.filter((item) => 
+    const filteredData = products.filter((item) =>
       item.name.toLowerCase().includes(searchValue.toLowerCase())
-    )
+    );
     setProductSearch(filteredData);
   }, [searchValue]);
 
@@ -47,7 +47,7 @@ export default function Home() {
         value={searchValue}
       />
       <div className="grid grid-cols-4 px-32 py-5">
-        {products.length === 0 && (<p>No products available</p>) }
+        {products.length === 0 && <p>No products available</p>}
         {!isLoading ? (
           productSearch.map((product) => (
             <div
@@ -65,13 +65,13 @@ export default function Home() {
                 />
                 <h4 className="font-bold">{product.name}</h4>
                 <p>Rating: {product.avg_rating}</p>
-                <button
-                  className="mt-3 p-2 bg-slate-400 rounded-md"
-                  onClick={addToCart}
-                >
-                  Add to cart
-                </button>
               </Link>
+              <button
+                className="mt-3 p-2 bg-slate-400 rounded-md"
+                onClick={addToCart}
+              >
+                Add to cart
+              </button>
             </div>
           ))
         ) : (
