@@ -8,7 +8,6 @@ const connectDatabase = require("./config/mongodb");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-const paymentRoutes = require("./routes/paymentRoutes");
 const userRoutes  = require("./routes/userRoutes");
 const foodRoutes = require("./routes/foodRoutes");
 const reviewRoutes = require("./routes/reviewRoutes")
@@ -24,7 +23,6 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/order", orderRoutes);
-app.use("/payment", paymentRoutes);
 app.use("/user", userRoutes);
 app.use("/food", foodRoutes);
 app.use("/review", reviewRoutes);

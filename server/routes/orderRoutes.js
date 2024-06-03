@@ -15,11 +15,7 @@ router.get(
   orderRoutes.getOrderAddress
 );
 
-router.post(
-  "/makeorder", 
-  authMiddleware(["user"]), 
-  orderRoutes.makeOrder
-);
+router.post("/makeorder", authMiddleware(["user"]), orderRoutes.makeOrder);
 
 router.put(
   "/cancelorder/:orderId",
@@ -40,6 +36,12 @@ router.put(
   "/completeorder/:orderId",
   authMiddleware(["user"]),
   orderRoutes.completeOrder
+);
+
+router.put(
+  "/payorder/:orderId",
+  authMiddleware(["user"]),
+  orderRoutes.payOrder
 );
 
 module.exports = router;
