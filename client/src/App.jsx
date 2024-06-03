@@ -1,25 +1,25 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import Navbar from "./components/Navbar.jsx";
 import { useAuthContext } from "./hooks/useAuthContext.jsx";
-import Home from "./pages/Home.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import ProductDetail from "./pages/ProductDetail.jsx";
+import Home from "./pages/Home.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
   return (
     <BrowserRouter>
-      <div>
+      <div className="">
         <Navbar />
-        {/* comment for auth */}
-        <Home />
         <Routes>
-          {/* uncomment for auth */}
-          {/* <Route path="/register" element={user ? <Navigate to="/" /> : <Register/>} /> */}
-          {/* <Route path="/login" element={user ? <Navigate to="/" /> : <Login/>} /> */}
-          {/* <Route path="/" element={!user ? <Navigate to="/login" /> : <Home/>} /> */}
+          <Route path="/register" element={<Register/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/product/:productId" element={<ProductDetail/>} />
         </Routes>
         <ToastContainer />
       </div>

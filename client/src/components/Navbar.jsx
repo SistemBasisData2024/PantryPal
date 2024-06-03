@@ -10,7 +10,9 @@ export default function Navbar() {
   };
   return (
     <div className="p-7 w-full flex">
-      <h3 className="font-bold ml-20 text-xl">PantryPal</h3>
+      <Link to="/">
+        <h3 className="font-bold ml-20 text-xl">PantryPal</h3>
+      </Link>
       <div>
         <ul className="position absolute top-7 right-10">
           {!user ? (
