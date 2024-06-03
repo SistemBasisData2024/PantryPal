@@ -84,6 +84,8 @@ const productController = {
       if (product.rows[0].seller_id != seller_id) {
         return res.status(403).json({ msg: "Forbidden request" });
       }
+      const rating = await pool.query("SELECT avg_rating FROM product WHERE product_id = $1", [product_id]);
+      const avg_rating = rating.rows[0].avg_rating;
       const updatedProduct = await pool.query(
         `
             UPDATE product
@@ -109,14 +111,11 @@ const productController = {
           data.stock,
           data.price,
           data.type,
-          data.avg_rating,
+          avg_rating,
           data.image,
           product_id,
         ]
       );
-
-      await Review.findByIdAndDelete({ entityId: product_id });
-
       res.status(200).json({
         message: "Product updated successfully",
         payload: updatedProduct,
@@ -146,6 +145,8 @@ const productController = {
         "DELETE FROM product WHERE product_id = $1",
         [product_id]
       );
+      await Review.findByIdAndDelete({ entityId: product_id });
+
       res.status(200).json({
         message: "Product deleted successfully",
         payload: deletedProduct,
