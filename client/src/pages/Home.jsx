@@ -47,7 +47,7 @@ export default function Home() {
         value={searchValue}
       />
       <div className="grid grid-cols-4 px-32 py-5">
-        {products.length === 0 && <p>No products available</p>}
+        {products.length === 0 && !isLoading && <p>No products available</p>}
         {!isLoading ? (
           productSearch.map((product) => (
             <div

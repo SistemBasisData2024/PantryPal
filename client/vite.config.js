@@ -12,41 +12,35 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/auth/, '/auth'),
       },
-      '/products': {
-        target: target,
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/products/, '/products'),
-      },
-      '/order': {
-        target: target,
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/order/, '/order'),
-      },
-      '/payment': {
-        target: target,
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/payment/, '/payment'),
-      },
       '/user': {
         target: target,
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/user/, '/user'),
       },
-      '/food': {
+      '/products': {
         target: target,
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/food/, '/food'),
+        rewrite: (path) => path.replace(/^\/products/, '/products'),
       },
-      '/review': {
+      '/orders': {
         target: target,
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/review/, '/review'),
+        rewrite: (path) => path.replace(/^\/orders/, '/orders'),
+      },
+      '/foods': {
+        target: target,
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/foods/, '/foods'),
+      },
+      '/reviews': {
+        target: target,
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/reviews/, '/reviews'),
       },
     },
   },
