@@ -65,6 +65,7 @@ export default function Home() {
                 />
                 <h4 className="font-bold">{product.name}</h4>
                 <p>Rating: {product.avg_rating}</p>
+                <p>Rp {product.price}</p>
               </Link>
               <button
                 className="mt-3 p-2 bg-slate-400 rounded-md"

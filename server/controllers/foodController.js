@@ -17,7 +17,6 @@ exports.getFoodById = async (req, res) => {
     const food = await Food.findOne({ _id: foodId }).populate({
       path: "recipes",
       model: Recipe,
-      
     });
     if(!food) {
       return res.status(404).json({ error: "Food not found" });
@@ -125,9 +124,16 @@ exports.deleteFood = async (req, res) => {
 exports.deleteRecipe = async (req, res) => {
   const { recipeId } = req.params;
   try {
+    const recipe = await Recipe.findById(recipeId);
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    await Food.findByIdAndUpdate(recipe.food, { $pull: { recipes: recipeId } });
     await Recipe.findByIdAndDelete(recipeId);
-    await Review.findByIdAndDelete({ entityId: recipeId });
-    res.status(200).json({ message: "Recipe succesfully deleted"});
+    await Review.deleteMany({ entityId: recipeId });
+
+    res.status(200).json({ message: "Recipe successfully deleted" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
