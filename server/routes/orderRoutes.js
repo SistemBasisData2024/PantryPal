@@ -9,6 +9,7 @@ router.get(
   authMiddleware(["supplier"]),
   orderRoutes.getSupplierOrders
 );
+router.get("/payments", authMiddleware(["user"]), orderRoutes.getPayments);
 router.get(
   "/orderaddress/:orderId",
   authMiddleware(["supplier"]),
