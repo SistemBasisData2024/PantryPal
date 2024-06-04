@@ -21,11 +21,11 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", authRoutes);
-app.use("/products", productRoutes);
-app.use("/order", orderRoutes);
 app.use("/user", userRoutes);
-app.use("/food", foodRoutes);
-app.use("/review", reviewRoutes);
+app.use("/products", productRoutes);
+app.use("/orders", orderRoutes);
+app.use("/foods", foodRoutes);
+app.use("/reviews", reviewRoutes);
 
 connectDatabase();
 pool.connect().then(() => {
