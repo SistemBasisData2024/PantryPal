@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 
 export default function SearchIngredient() {
   const { recipeId } = useParams();
-  const [searchValue, setSearchValue] = useState("");
   const [products, setProducts] = useState([]);
   const [recipes, setRecipes] = useState({});
+  const [searchValue, setSearchValue] = useState("");
   const [productSearch, setProductSearch] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -17,7 +17,6 @@ export default function SearchIngredient() {
         const response = await axios.get("/products");
         setProducts(response.data);
         setProductSearch(response.data);
-        console.log("name ", response.data[0].name);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -29,6 +28,7 @@ export default function SearchIngredient() {
       try {
         const response = await axios.get(`/foods/getrecipe/${recipeId}`);
         setRecipes(response.data);
+        setSearchValue(response.data.products[0].name);
         console.log(response.data);
       } catch (error) {
         toast(`Error ${error}`, { position: "bottom-right" });
