@@ -16,6 +16,8 @@ import SupplierDashboard from "./pages/SupplierDashboard.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import UpdateProduct from "./pages/UpdateProduct.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
+import UserHistory from "./pages/UserHistory.jsx";
+import UserPayments from "./pages/UserPayments.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -27,7 +29,10 @@ export default function App() {
       location.pathname === "/" ||
       location.pathname.startsWith("/food") ||
       location.pathname.startsWith("/supplier") ||
-      location.pathname.startsWith("/admin")
+      location.pathname.startsWith("/admin") ||
+      location.pathname.startsWith("/order") ||
+      location.pathname.startsWith("/payments") ||
+      location.pathname.startsWith("/profile")
     );
   };
 
@@ -86,10 +91,7 @@ export default function App() {
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/review/:reviewId" element={<Reviews />} />
             <Route path="/food/:foodId" element={<FoodDetail />} />
-            <Route
-              path="/recipe/:recipeId"
-              element={<SearchIngredient />}
-            ></Route>
+            <Route path="/recipe/:recipeId" element={<SearchIngredient />} />
             <Route
               path="/supplier/dashboard"
               element={
@@ -99,7 +101,7 @@ export default function App() {
                   <Navigate to="/" />
                 )
               }
-            ></Route>
+            />
             <Route
               path="/product/update/:productId"
               element={
@@ -109,17 +111,17 @@ export default function App() {
                   <Navigate to="/" />
                 )
               }
-            ></Route>
+            />
             <Route
               path="/product/add"
               element={
                 user && user.payload.role === "supplier" ? (
-                  <AddProduct/>
+                  <AddProduct />
                 ) : (
                   <Navigate to="/" />
                 )
               }
-            ></Route>
+            />
             <Route
               path="/admin/dashboard"
               element={
@@ -129,7 +131,27 @@ export default function App() {
                   <Navigate to="/" />
                 )
               }
-            ></Route>
+            />
+            <Route
+              path="/order"
+              element={
+                user ? (
+                  <UserHistory />
+                ) : (
+                  <Navigate to="/order" />
+                )
+              }
+            />
+            <Route
+              path="/payments"
+              element={
+                user ? (
+                  <UserPayments />
+                ) : (
+                  <Navigate to="/payments" />
+                )
+              }
+            />
           </Routes>
         </div>
       </div>
