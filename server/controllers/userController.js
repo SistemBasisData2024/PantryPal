@@ -1,6 +1,19 @@
 const pool = require("../config/pg");
 const Cart = require("../models/CartModel");
 
+exports.getProfile = async (req, res) => {
+  const user_id = req.user.id;
+  try {
+    const profile = await pool.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      [user_id]
+    );
+    res.status(200).json(profile);
+  } catch(error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 exports.topUp = async (req, res) => {
   const user_id = req.user.id;
   const topup_amount = req.body.top_up;
