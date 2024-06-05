@@ -64,7 +64,7 @@ const productController = {
         .status(201)
         .json({ message: "Product added successfully!", payload: result });
     } catch (error) {
-      res.status(200).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
   },
 
@@ -84,7 +84,10 @@ const productController = {
       if (product.rows[0].seller_id != seller_id) {
         return res.status(403).json({ msg: "Forbidden request" });
       }
-      const rating = await pool.query("SELECT avg_rating FROM product WHERE product_id = $1", [product_id]);
+      const rating = await pool.query(
+        "SELECT avg_rating FROM product WHERE product_id = $1",
+        [product_id]
+      );
       const avg_rating = rating.rows[0].avg_rating;
       const updatedProduct = await pool.query(
         `
@@ -145,7 +148,10 @@ const productController = {
         "DELETE FROM product WHERE product_id = $1",
         [product_id]
       );
-      await Review.findByIdAndDelete({ entityId: product_id });
+      const hasReview = await Review.find({ entityId: product_id })
+      if(hasReview.length > 0) {
+        await Review.findByIdAndDelete({ entityId: product_id });
+      }
 
       res.status(200).json({
         message: "Product deleted successfully",

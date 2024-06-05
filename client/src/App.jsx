@@ -15,6 +15,7 @@ import SearchIngredient from "./pages/SearchIngredient.jsx";
 import SupplierDashboard from "./pages/SupplierDashboard.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import UpdateProduct from "./pages/UpdateProduct.jsx";
+import AddProduct from "./pages/AddProduct.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -104,6 +105,16 @@ export default function App() {
               element={
                 user && user.payload.role === "supplier" ? (
                   <UpdateProduct />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            ></Route>
+            <Route
+              path="/product/add"
+              element={
+                user && user.payload.role === "supplier" ? (
+                  <AddProduct/>
                 ) : (
                   <Navigate to="/" />
                 )

@@ -12,7 +12,21 @@ export default function SupplierDashboard() {
   const [searchValue, setSearchValue] = useState(products);
   const [isLoading, setIsLoading] = useState(true);
 
-  const deleteProduct = () => {};
+  const deleteProduct = async (id) => {
+    try {
+      await axios.delete("/products/delete/" + id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setProducts((products) => products.filter((product) => product.product_id !== id));
+      setProductSearch((products) => products.filter((product) => product.product_id !== id));
+      toast.success(`Deleted Succesfully`, { position: "top-center" });
+    } catch(error) {
+      toast.error(error)
+    }
+  };
 
   useEffect(() => {
     const getProducts = async () => {
@@ -43,7 +57,14 @@ export default function SupplierDashboard() {
   }, [searchValue]);
   return (
     <div>
-      <h1 className="m-5 ml-36 font-bold">My Products</h1>
+      <div className="flex m-5 mx-36 items-center justify-between">
+        <h1 className="font-bold">My Products</h1>
+        <span className="text-2xl m-3">
+          <Link to={`/product/add`}>
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </Link>
+        </span>
+      </div>
       <div className="flex flex-col items-center">
         <input
           className="w-96 mb-4 border-2"
@@ -75,13 +96,15 @@ export default function SupplierDashboard() {
                 </Link>
                 <button
                   className="text-sm mt-3 py-1 w-full bg-blue-400 rounded-md"
-                  onClick={() => navigate(`/product/update/${product.product_id}`)}
+                  onClick={() =>
+                    navigate(`/product/update/${product.product_id}`)
+                  }
                 >
                   Update
                 </button>
                 <button
                   className="text-sm mt-3 py-1 w-full bg-red-500 rounded-md"
-                  onClick={deleteProduct}
+                  onClick={() => deleteProduct(product.product_id)}
                 >
                   Delete
                 </button>
