@@ -1,11 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  useLocation,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +14,7 @@ import FoodDetail from "./pages/FoodDetail.jsx";
 import SearchIngredient from "./pages/SearchIngredient.jsx";
 import SupplierDashboard from "./pages/SupplierDashboard.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
+import UpdateProduct from "./pages/UpdateProduct.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -30,7 +24,9 @@ export default function App() {
     const paths = ["/recipe", "/login", "/register"];
     return (
       location.pathname === "/" ||
-      location.pathname.startsWith("/food")
+      location.pathname.startsWith("/food") ||
+      location.pathname.startsWith("/supplier") ||
+      location.pathname.startsWith("/admin")
     );
   };
 
@@ -58,14 +54,14 @@ export default function App() {
                 </div>
               )}
               {user && user.payload.role === "supplier" && (
-                <Link to="/order/myorders">
-                  <p className="mb-5">My Orders</p>
-                </Link>
-              )}
-              {user && user.payload.role === "supplier" && (
-                <Link to="/supplier/dashboard">
-                  <p className="mb-5">Dashboard</p>
-                </Link>
+                <div>
+                  <Link to="/order/myorders">
+                    <p className="mb-5">My Orders</p>
+                  </Link>
+                  <Link to="/supplier/dashboard">
+                    <p className="mb-5">Dashboard</p>
+                  </Link>
+                </div>
               )}
               {user && user.payload.role === "admin" && (
                 <Link to="/admin/dashboard">
@@ -98,6 +94,16 @@ export default function App() {
               element={
                 user && user.payload.role === "supplier" ? (
                   <SupplierDashboard />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            ></Route>
+            <Route
+              path="/product/update/:productId"
+              element={
+                user && user.payload.role === "supplier" ? (
+                  <UpdateProduct />
                 ) : (
                   <Navigate to="/" />
                 )

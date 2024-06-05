@@ -11,7 +11,7 @@ const productController = {
     }
   },
 
-  getProducts: async (req, res) => {
+  getMyProducts: async (req, res) => {
     const user_id = req.user.id;
     try {
       const product = await pool.query(

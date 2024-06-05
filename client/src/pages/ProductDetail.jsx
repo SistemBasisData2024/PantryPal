@@ -7,6 +7,7 @@ export default function ProductDetail() {
   const { productId } = useParams();
 
   useEffect(() => {
+    console.log("hello");
     const getProduct = async () => {
       try {
         const response = await axios.get(`/products/${productId}`);
@@ -16,6 +17,7 @@ export default function ProductDetail() {
     };
     getProduct();
   }, []);
+
   return (
     <div>
       <img src={product.image} alt="" className="w-full h-56 object-cover" />
