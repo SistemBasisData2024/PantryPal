@@ -1,31 +1,53 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
+import CartDropdown from "./CartDropdown"; // Import the CartDropdown component
 
-export default function Navbar() {
+export default function Navbar({ cart }) {
   const { user } = useAuthContext();
   const { logout } = useLogout();
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
   const handleLogout = () => {
     logout();
   };
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
   return (
     <div className="p-7 w-full flex">
       <Link to="/">
         <h3 className="font-bold ml-20 text-xl">PantryPal</h3>
       </Link>
       <div>
-        <ul className="position absolute top-7 right-10">
+        <ul className="position absolute top-7 right-10 flex items-center">
+          <div className="relative">
+            <button onClick={toggleDropdown} className="mx-6 text-xl">
+              <ion-icon name="cart-outline"></ion-icon>
+              <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs ml-2">
+                
+              </span>
+            </button>
+            {dropdownVisible && <CartDropdown cart={cart} />}
+          </div>
           {!user ? (
             <div className="flex">
               <Link to="/login">
-                <li className="mx-16">Login</li>
+                <li className="mx-6">Login</li>
               </Link>
               <Link to="/register">
-                <li className="mx-16">Register</li>
+                <li className="mx-6">Register</li>
               </Link>
             </div>
           ) : (
-            <button onClick={handleLogout}>Logout</button>
+            <>
+              <button onClick={handleLogout} className="mx-6">
+                Logout
+              </button>
+            </>
           )}
         </ul>
       </div>
