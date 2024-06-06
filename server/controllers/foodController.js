@@ -3,7 +3,6 @@ const Review = require("../models/ReviewModel");
 const Recipe = require("../models/RecipeModel");
 
 exports.getFood = async (req, res) => {
-  console.log("run");
   try {
     const food = await Food.find();
     res.status(200).json(food);

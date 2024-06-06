@@ -16,6 +16,16 @@ exports.getOrders = async (req, res) => {
   }
 };
 
+exports.getOrderById = async (req, res) => {
+  const orderId = req.params.orderId;
+  try {
+    const order = await pool.query('SELECT * FROM "Order" WHERE order_id = $1', [orderId]);
+    res.status(200).json(order);
+  } catch(error) {
+    res.status(500).json({error: error.message});
+  }
+}
+
 exports.getSupplierOrders = async (req, res) => {
   const user_id = req.user.id;
   try {

@@ -18,6 +18,8 @@ import UpdateProduct from "./pages/UpdateProduct.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
 import UserHistory from "./pages/UserHistory.jsx";
 import UserPayments from "./pages/UserPayments.jsx";
+import SupplierOrders from "./pages/SupplierOrders.jsx";
+import OrderItem from "./pages/OrderItem.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -61,7 +63,7 @@ export default function App() {
               )}
               {user && user.payload.role === "supplier" && (
                 <div>
-                  <Link to="/order/myorders">
+                  <Link to="/supplier/order">
                     <p className="mb-5">My Orders</p>
                   </Link>
                   <Link to="/supplier/dashboard">
@@ -134,21 +136,29 @@ export default function App() {
             />
             <Route
               path="/order"
+              element={user ? <UserHistory /> : <Navigate to="/order" />}
+            />
+            <Route
+              path="/payments"
+              element={user ? <UserPayments /> : <Navigate to="/payments" />}
+            />
+            <Route
+              path="/supplier/order"
               element={
-                user ? (
-                  <UserHistory />
+                user && user.payload.role === "supplier" ? (
+                  <SupplierOrders />
                 ) : (
-                  <Navigate to="/order" />
+                  <Navigate to="/" />
                 )
               }
             />
             <Route
-              path="/payments"
+              path="/supplier/orderitem/:orderId"
               element={
-                user ? (
-                  <UserPayments />
+                user && user.payload.role === "supplier" ? (
+                  <OrderItem/>
                 ) : (
-                  <Navigate to="/payments" />
+                  <Navigate to="/" />
                 )
               }
             />

@@ -4,6 +4,7 @@ const orderRoutes = require("../controllers/orderController");
 const router = express.Router();
 
 router.get("/", authMiddleware(["user"]), orderRoutes.getOrders);
+router.get("/getorder/:orderId", orderRoutes.getOrderById);
 router.get(
   "/myorders",
   authMiddleware(["supplier"]),

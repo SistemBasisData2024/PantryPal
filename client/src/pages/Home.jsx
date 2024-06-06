@@ -55,7 +55,6 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar cart={cart} />
       <div className="flex flex-col items-center">
         <input
           className="w-96 mb-4 border-2"
