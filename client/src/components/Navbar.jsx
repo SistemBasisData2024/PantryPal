@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
-import CartDropdown from "./CartDropdown"; // Import the CartDropdown component
+import CartDropdown from "./CartDropdown";
 
 export default function Navbar({ cart, removeFromCart }) {
   const { user } = useAuthContext();
@@ -14,7 +14,7 @@ export default function Navbar({ cart, removeFromCart }) {
   };
 
   const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
+    setDropdownVisible((prev) => !prev);
   };
 
   return (
@@ -24,15 +24,19 @@ export default function Navbar({ cart, removeFromCart }) {
       </Link>
       <div>
         <ul className="position absolute top-7 right-10 flex items-center">
-          <div className="relative">
-            <button onClick={toggleDropdown} className="mx-6 text-xl">
-              <ion-icon name="cart-outline"></ion-icon>
-              <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs ml-2">
-                {cart.length}
-              </span>
-            </button>
-            {dropdownVisible && <CartDropdown cart={cart} removeFromCart={removeFromCart} />}
-          </div>
+          {user && user.payload.role === "user" && (
+            <div className="relative">
+              <button onClick={toggleDropdown} className="mx-6 text-xl">
+                <ion-icon name="cart-outline"></ion-icon>
+                <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs ml-2">
+                  {cart && cart.length}
+                </span>
+              </button>
+              {dropdownVisible && (
+                <CartDropdown cart={cart} removeFromCart={removeFromCart} />
+              )}
+            </div>
+          )}
           {!user ? (
             <div className="flex">
               <Link to="/login">

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function ProductDetail({ cart, addToCart }) {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState([]);
   const { productId } = useParams();
 
   useEffect(() => {
