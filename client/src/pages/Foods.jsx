@@ -1,13 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Foods() {
+  const { user } = useAuthContext();
   const [searchValue, setSearchValue] = useState("");
   const [foods, setFoods] = useState([]);
   const [searchFood, setSearchFood] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const deleteFood = async (id) => {
+    try {
+      await axios.delete("/foods/deletefood/" + id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setFoods((foods) =>
+        foods.filter((food) => food._id !== id)
+      );
+      setSearchFood((foods) =>
+        foods.filter((food) => food._id !== id)
+      );
+      toast.success(`Deleted Succesfully`, { position: "top-center" });
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
   useEffect(() => {
     const getFood = async () => {
@@ -27,7 +50,7 @@ export default function Foods() {
   }, []);
 
   useEffect(() => {
-    const filteredData = foods.filter((food) => 
+    const filteredData = foods.filter((food) =>
       food.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     setSearchFood(filteredData);
@@ -49,12 +72,27 @@ export default function Foods() {
               key={food._id}
               className="w-full rounded-lg border-2 border-black flex justify-between"
             >
-              <div className="p-5">
-                <Link to={`/food/${food._id}`}>
-                  <h2 className="font-bold text-xl mb-3">{food.name}</h2>
-                  <p>{food.cuisine}</p>
-                  <p>{food.recipes.length} recipes available</p>
-                </Link>
+              <div className="p-5 w-full">
+                <div>
+                  <Link to={`/food/${food._id}`}>
+                    <h2 className="font-bold text-xl mb-3">{food.name}</h2>
+                    <p>{food.cuisine}</p>
+                    <p>{food.recipes.length} recipes available</p>
+                  </Link>
+                </div>
+                {user && user.payload.role === "admin" && (
+                  <div className="w-full flex justify-evenly p-1 mt-1 rounded-md">
+                    <button className="px-3 rounded-md w-full mx-1 bg-blue-300" onClick={() => navigate(`/food/update/${food._id}`)}>
+                      Update
+                    </button>
+                    <button
+                      className="px-3 rounded-md w-full mx-1 bg-red-400 text-white"
+                      onClick={() => deleteFood(food._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
               </div>
               <img
                 src={

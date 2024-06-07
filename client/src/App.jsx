@@ -13,13 +13,13 @@ import Foods from "./pages/Foods.jsx";
 import FoodDetail from "./pages/FoodDetail.jsx";
 import SearchIngredient from "./pages/SearchIngredient.jsx";
 import SupplierDashboard from "./pages/SupplierDashboard.jsx";
-import AdminDashboard from "./pages/AdminDashboard.jsx";
 import UpdateProduct from "./pages/UpdateProduct.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
 import UserHistory from "./pages/UserHistory.jsx";
 import UserPayments from "./pages/UserPayments.jsx";
 import SupplierOrders from "./pages/SupplierOrders.jsx";
 import OrderItem from "./pages/OrderItem.jsx";
+import UpdateFood from "./pages/UpdateFood.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -71,12 +71,7 @@ export default function App() {
                   </Link>
                 </div>
               )}
-              {user && user.payload.role === "admin" && (
-                <Link to="/admin/dashboard">
-                  <p className="mb-5">Dashboard</p>
-                </Link>
-              )}
-              {user && (
+              {(user && user.payload.role !== "admin") && (
                 <Link to="/profile">
                   <p className="mb-5">Profile</p>
                 </Link>
@@ -86,13 +81,14 @@ export default function App() {
         )}
         <div className={showSidebar() ? "col-span-6" : ""}>
           <Routes>
-            <Route path="/food" element={<Foods />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/review/:reviewId" element={<Reviews />} />
+            <Route path="/food" element={<Foods />} />
             <Route path="/food/:foodId" element={<FoodDetail />} />
+            <Route path="/food/update/:foodId" element={<UpdateFood/>} />
             <Route path="/recipe/:recipeId" element={<SearchIngredient />} />
             <Route
               path="/supplier/dashboard"
@@ -119,16 +115,6 @@ export default function App() {
               element={
                 user && user.payload.role === "supplier" ? (
                   <AddProduct />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
-            />
-            <Route
-              path="/admin/dashboard"
-              element={
-                user && user.payload.role === "admin" ? (
-                  <AdminDashboard />
                 ) : (
                   <Navigate to="/" />
                 )

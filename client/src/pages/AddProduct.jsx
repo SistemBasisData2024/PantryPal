@@ -20,7 +20,6 @@ export default function AddProduct() {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
       const response = await axios.post(
         "/products/add/",
