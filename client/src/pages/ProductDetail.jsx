@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function ProductDetail() {
-  const [product, setProduct] = useState([]);
+export default function ProductDetail({ cart, addToCart }) {
+  const [product, setProduct] = useState({});
   const { productId } = useParams();
 
   useEffect(() => {
-    console.log("hello");
     const getProduct = async () => {
       try {
         const response = await axios.get(`/products/${productId}`);
         setProduct(response.data.payload);
-        console.log(response.data.payload);
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
     };
     getProduct();
-  }, []);
+  }, [productId]);
 
   return (
     <div>
@@ -32,7 +32,12 @@ export default function ProductDetail() {
           <p>{product.description}</p>
           <h2 className="font-bold text-xl">{product.price}</h2>
         </div>
-        <button className="py-1 px-6 rounded-md bg-slate-500">Add To Cart</button>
+        <button
+          className="py-1 px-6 rounded-md bg-slate-500"
+          onClick={() => addToCart(product)} // Add to cart on button click
+        >
+          Add To Cart
+        </button>
       </div>
     </div>
   );

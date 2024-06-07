@@ -4,11 +4,10 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 
-export default function Home() {
+export default function Home({ cart, setCart }) {
   const [searchValue, setSearchValue] = useState("");
   const [products, setProducts] = useState([]);
   const [productSearch, setProductSearch] = useState(products);
-  const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const addToCart = (product) => {
