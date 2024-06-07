@@ -15,6 +15,7 @@ PantryPal is an E-commerce application serving as a platform for selling food in
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 
 ## 📑 Documentation
+# :bar_chart: Diagram
 **ERD**
 > **Entity Color**
 > - ProtgreSQL: <span style="color: #2F3296; font-weight: bold;">Blue</span>
@@ -26,6 +27,48 @@ PantryPal is an E-commerce application serving as a platform for selling food in
 **FLOWCHART**
 <div align="center">
 </div>
+
+# :computer: Installation Guide
+
+Clone this repository
+
+```
+git clone https://github.com/SistemBasisData2024/PantryPal.git
+```
+
+## Frontend
+
+- Ensure You’re on the right folder
+
+  ```
+  git clone https://github.com/SistemBasisData2024/PantryPal.git
+  ```
+
+- Run npm install to install all dependencies
+  ```
+   npm install
+  ```
+- To test the installation result run
+  ```
+  npm run dev
+  ```
+
+## Backend
+
+- Ensure You’re on the right folder
+
+- Run npm install to install all dependencies
+  ```
+   npm install
+  ```
+- Create an .env file in your project root folder and add your variables.
+
+- Insert Database Variables
+
+- To test the installation result run
+  ```
+   npm run start
+  ```
 
 __Postman API Endpoints__
 
