@@ -23,6 +23,9 @@ PantryPal is an E-commerce application serving as a platform for selling food in
 <img src="./documents/PantryPal App ERD.png" width="700" height="auto" alt="PantryPal App ERD">
 </div>
 
+**FLOWCHART**
+<div align="center">
+</div>
 
 __Postman API Endpoints__
 
