@@ -13,7 +13,7 @@ export default function OrderItem() {
 
   const handleProcessing = async () => {
     try {
-      const response = await axios.put(`/orders/acceptorder/${orderId}`, {
+      const response = await axios.put(`/orders/acceptorder/${orderId}`, {}, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
@@ -26,13 +26,13 @@ export default function OrderItem() {
   };
   const handleDeliver = async () => {
     try {
-      const response = await axios.put(`/orders/deliverorder/${orderId}`, {
+      const response = await axios.put(`/orders/deliverorder/${orderId}`, {}, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
       });
-      response.status === 200 && toast.success("Order Accepeted");
+      response.status === 200 && toast.success("Changed status to delivering");
     } catch (error) {
       toast.error(error);
     }
@@ -99,7 +99,7 @@ export default function OrderItem() {
             <p>City: {orderAddress.city}</p>
             <p>Address: {orderAddress.street}</p>
           </div>
-          {order.status !== "completed" && (
+          {(order.status !== "completed" && order.status !== "delivered") && (
             <div className="flex justify-evenly p-5 rounded-md border-2">
               {order.status === "pending" && (
                 <button
