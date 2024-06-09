@@ -69,6 +69,7 @@ exports.postCart = async (req, res) => {
 exports.postCartDeleteProduct = async (req, res) => {
   const user_id = req.user.id;
   const product = req.body;
+  console.log(product);
   try {
     let cart = await Cart.findOne({ user_id: user_id });
     if (!cart) {

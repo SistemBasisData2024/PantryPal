@@ -25,6 +25,7 @@ import Profile from "./pages/Profile.jsx";
 import OrderDetail from "./pages/OrderDetail.jsx";
 import AddRecipe from "./pages/AddRecipe.jsx";
 import AddReview from "./pages/AddReview.jsx";
+import CartPage from "./pages/CartPage.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -149,6 +150,14 @@ export default function App() {
             <Route
               path="/payments"
               element={user ? <UserPayments /> : <Navigate to="/payments" />}
+            />
+            <Route
+              path="/cart"
+              element={
+                (user && user.payload.role === "user") && (
+                  <CartPage/>
+                ) 
+              }
             />
             <Route
               path="/supplier/order"

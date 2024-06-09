@@ -13,7 +13,6 @@ export const useLogin = () => {
     try {
       setIsLoading(true);
       setError(null);
-      console.log("login: ", email, password);
   
       const response = await axios.post("/auth/login", {
         email: email,
@@ -23,8 +22,6 @@ export const useLogin = () => {
           "Content-Type": "application/json"
         }
       });
-      console.log("data: ", response.data);
-      console.log("status: ", response.status);
       
       if(response.status !== 200) {
         setIsLoading(false);

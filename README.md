@@ -15,7 +15,6 @@ PantryPal is an E-commerce application serving as a platform for selling food in
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 
 ## 📑 Documentation
-# :bar_chart: Diagram
 **ERD**
 > **Entity Color**
 > - ProtgreSQL: <span style="color: #2F3296; font-weight: bold;">Blue</span>
@@ -29,6 +28,19 @@ PantryPal is an E-commerce application serving as a platform for selling food in
 
 **UML**
 ![image](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/0c75843e-f340-4171-834d-a9af02781e2e)
+
+
+__Postman API Endpoints__
+
+| API | Link    |
+| :---:   | :---: | 
+| Authentication | https://documenter.getpostman.com/view/25471979/2sA3QwcVEV   |
+| Users | https://documenter.getpostman.com/view/25471979/2sA3Qy4TdD   |
+| Products | https://documenter.getpostman.com/view/25471979/2sA3QwdW8k   |
+| Reviews | https://documenter.getpostman.com/view/25471979/2sA3QwdWMv   |
+| Food & Recipes | https://documenter.getpostman.com/view/25471979/2sA3QwcVJu   |
+| Order & Payments | https://documenter.getpostman.com/view/25471979/2sA3QwdVq9   |
+
 
 # :computer: Installation Guide
 
@@ -70,14 +82,3 @@ git clone https://github.com/SistemBasisData2024/PantryPal.git
   ```
    npm run start
   ```
-
-__Postman API Endpoints__
-
-| API | Link    |
-| :---:   | :---: | 
-| Authentication | https://documenter.getpostman.com/view/25471979/2sA3QwcVEV   |
-| Users | https://documenter.getpostman.com/view/25471979/2sA3Qy4TdD   |
-| Products | https://documenter.getpostman.com/view/25471979/2sA3QwdW8k   |
-| Reviews | https://documenter.getpostman.com/view/25471979/2sA3QwdWMv   |
-| Food & Recipes | https://documenter.getpostman.com/view/25471979/2sA3QwcVJu   |
-| Order & Payments | https://documenter.getpostman.com/view/25471979/2sA3QwdVq9   |

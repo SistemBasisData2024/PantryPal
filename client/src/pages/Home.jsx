@@ -2,30 +2,35 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Navbar from "../components/Navbar";
+import { useAddToCart } from "../hooks/useAddCart";
 
 export default function Home({ cart, setCart }) {
   const [searchValue, setSearchValue] = useState("");
   const [products, setProducts] = useState([]);
   const [productSearch, setProductSearch] = useState(products);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isWaiting, setIsWaiting] = useState(true);
+  const { addToCart, isLoading } = useAddToCart();
 
-  const addToCart = (product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find(
-        (item) => item.product_id === product.product_id
-      );
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.product_id === product.product_id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+  const handleAddToCart = async (product) => {
+    try {
+      await addToCart(product);
+      setCart((prevCart) => {
+        const existingProduct = prevCart.find(
+          (item) => item.product_id === product.product_id
         );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
-    toast.success(`${product.name} added to cart`, { position: "bottom-right" });
+        if (existingProduct) {
+          return prevCart.map((item) =>
+            item.product_id === product.product_id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          return [...prevCart, { ...product, quantity: 1 }];
+        }
+      });
+    } catch(error) {
+
+    }
   };
 
   useEffect(() => {
@@ -34,9 +39,9 @@ export default function Home({ cart, setCart }) {
         const response = await axios.get("/products");
         setProducts(response.data);
         setProductSearch(response.data);
-        setIsLoading(false);
+        setIsWaiting(false);
       } catch (error) {
-        setIsLoading(false);
+        setIsWaiting(false);
         toast.error(`Error: ${error.message}`, { position: "bottom-right" });
       }
     };
@@ -62,8 +67,8 @@ export default function Home({ cart, setCart }) {
           value={searchValue}
         />
         <div className="grid grid-cols-4 px-32 py-5">
-          {products.length === 0 && !isLoading && <p>No products available</p>}
-          {!isLoading ? (
+          {products.length === 0 && !isWaiting && <p>No products available</p>}
+          {!isWaiting ? (
             productSearch.map((product) => (
               <div
                 className="p-10 border-3 border-black border-2 m-3 rounded-md"
@@ -84,7 +89,8 @@ export default function Home({ cart, setCart }) {
                 </Link>
                 <button
                   className="mt-3 p-2 bg-slate-400 rounded-md"
-                  onClick={() => addToCart(product)}
+                  onClick={() => handleAddToCart({product_id: product.product_id, seller_id: product.seller_id})}
+                  disabled={isLoading}
                 >
                   Add to cart
                 </button>
