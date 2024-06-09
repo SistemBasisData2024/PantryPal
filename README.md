@@ -83,3 +83,10 @@ git clone https://github.com/SistemBasisData2024/PantryPal.git
   ```
    npm run start
   ```
+
+# 💻 Progress Report:
+## First Meeting
+![messageImage_1717212834432](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/74c53241-4036-41ea-ad9a-2e90605cca41)
+
+## Second Meeting
+![meet 2](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/6eea785b-8552-460f-9e0c-555154fbbed4)
