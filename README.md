@@ -1,4 +1,4 @@
-# Pantry Pal
+# PantryPal
 PantryPal is an E-commerce application serving as a platform for selling food ingredients. This website offers a feature that provides recommendations for ingredients based on a dish selected by the user. Subsequently, the ingredients can be filtered by rating, price, or supplier. The website has three roles: admin, supplier, and buyer. Admins can add new recipes, while suppliers and buyers can sell and purchase food ingredients. Buyers can also purchase recipes either individually or along with the recommended ingredients. Ratings can be given to the food ingredients that have been purchased or to the recipes that have been tried.
 
 ## 💻 Tech Stack
@@ -25,8 +25,10 @@ PantryPal is an E-commerce application serving as a platform for selling food in
 </div>
 
 **FLOWCHART**
-<div align="center">
-</div>
+![Flowchart (1)](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/f13310d3-3a8e-437d-8d31-1018b07907c7)
+
+**UML**
+![image](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/0c75843e-f340-4171-834d-a9af02781e2e)
 
 # :computer: Installation Guide
 
@@ -39,7 +41,6 @@ git clone https://github.com/SistemBasisData2024/PantryPal.git
 ## Frontend
 
 - Ensure You’re on the right folder
-
   ```
   git clone https://github.com/SistemBasisData2024/PantryPal.git
   ```
