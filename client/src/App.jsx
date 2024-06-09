@@ -180,6 +180,16 @@ export default function App() {
                 )
               }
             />
+            <Route
+              path="/admin/addfood"
+              element={
+                user && user.payload.role === "admin" ? (
+                  <AddFood/>
+                ) : (
+                  <Navigate to="/food" />
+                )
+              }
+            />
           </Routes>
         </div>
       </div>
