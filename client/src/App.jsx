@@ -20,6 +20,11 @@ import UserPayments from "./pages/UserPayments.jsx";
 import SupplierOrders from "./pages/SupplierOrders.jsx";
 import OrderItem from "./pages/OrderItem.jsx";
 import UpdateFood from "./pages/UpdateFood.jsx";
+import AddFood from "./pages/AddFood.jsx";
+import Profile from "./pages/Profile.jsx";
+import OrderDetail from "./pages/OrderDetail.jsx";
+import AddRecipe from "./pages/AddRecipe.jsx";
+import AddReview from "./pages/AddReview.jsx";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -34,7 +39,8 @@ export default function App() {
       location.pathname.startsWith("/admin") ||
       location.pathname.startsWith("/order") ||
       location.pathname.startsWith("/payments") ||
-      location.pathname.startsWith("/profile")
+      location.pathname.startsWith("/profile") ||
+      location.pathname.startsWith("/rate")
     );
   };
 
@@ -71,7 +77,12 @@ export default function App() {
                   </Link>
                 </div>
               )}
-              {(user && user.payload.role !== "admin") && (
+              {user && user.payload.role === "admin" && (
+                <Link to="/admin/addfood">
+                  <p className="mb-5">Add Food</p>
+                </Link>
+              )}
+              {user && user.payload.role !== "admin" && (
                 <Link to="/profile">
                   <p className="mb-5">Profile</p>
                 </Link>
@@ -83,12 +94,18 @@ export default function App() {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={user ? (
+                  <Profile/>
+                ) : (
+                  <Navigate to="/" />
+                )} />
             <Route path="/" element={<Home />} />
             <Route path="/product/:productId" element={<ProductDetail />} />
-            <Route path="/review/:reviewId" element={<Reviews />} />
+            <Route path="/review/:entityId" element={<Reviews />} />
+            <Route path="/rate/:entityId" element={(user && user.payload.role === "user") && <AddReview/>}/>
             <Route path="/food" element={<Foods />} />
             <Route path="/food/:foodId" element={<FoodDetail />} />
-            <Route path="/food/update/:foodId" element={<UpdateFood/>} />
+            <Route path="/food/update/:foodId" element={<UpdateFood />} />
             <Route path="/recipe/:recipeId" element={<SearchIngredient />} />
             <Route
               path="/supplier/dashboard"
@@ -125,6 +142,10 @@ export default function App() {
               element={user ? <UserHistory /> : <Navigate to="/order" />}
             />
             <Route
+              path="/order/:orderId"
+              element={user && <OrderDetail/>}
+            />
+            <Route
               path="/payments"
               element={user ? <UserPayments /> : <Navigate to="/payments" />}
             />
@@ -142,9 +163,19 @@ export default function App() {
               path="/supplier/orderitem/:orderId"
               element={
                 user && user.payload.role === "supplier" ? (
-                  <OrderItem/>
+                  <OrderItem />
                 ) : (
                   <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/admin/addrecipe/:foodId"
+              element={
+                user && user.payload.role === "admin" ? (
+                  <AddRecipe />
+                ) : (
+                  <Navigate to="/food" />
                 )
               }
             />

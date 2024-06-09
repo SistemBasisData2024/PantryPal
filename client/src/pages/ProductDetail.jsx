@@ -25,7 +25,7 @@ export default function ProductDetail({ cart, addToCart }) {
         <h1 className="font-bold text-4xl">{product.name}</h1>
         <div className="p-5">
           <p>{product.expired}</p>
-          <Link to={`/reviews/${product.product_id}`}>
+          <Link to={`/review/${product.product_id}`}>
             <h5>Rating: {product.avg_rating}</h5>
           </Link>
           <p>Brand: {product.brand}</p>
@@ -34,7 +34,7 @@ export default function ProductDetail({ cart, addToCart }) {
         </div>
         <button
           className="py-1 px-6 rounded-md bg-slate-500"
-          onClick={() => addToCart(product)} // Add to cart on button click
+          onClick={() => addToCart(product)}
         >
           Add To Cart
         </button>

@@ -18,6 +18,7 @@ exports.topUp = async (req, res) => {
   const user_id = req.user.id;
   const topup_amount = req.body.top_up;
   try {
+    console.log(user_id, topup_amount);
     const balanceResult = await pool.query(
       "SELECT balance FROM users WHERE user_id = $1",
       [user_id]
@@ -28,7 +29,7 @@ exports.topUp = async (req, res) => {
       `UPDATE users SET balance = $1 WHERE user_id = $2`,
       [newBalance, user_id]
     );
-    res.status(200).json({ message: "Top up success" });
+    res.status(200).json({ message: "Top up success", newBalance: newBalance });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

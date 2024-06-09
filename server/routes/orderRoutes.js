@@ -12,7 +12,7 @@ router.get(
 );
 router.get(
   "/orderdetails/:orderId",
-  authMiddleware(["user"]),
+  authMiddleware(["user", "supplier"]),
   orderRoutes.getOrderDetails
 );
 router.get("/payments", authMiddleware(["user"]), orderRoutes.getPayments);

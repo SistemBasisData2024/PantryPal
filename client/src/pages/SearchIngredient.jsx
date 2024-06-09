@@ -54,10 +54,12 @@ export default function SearchIngredient() {
     <div className="grid grid-cols-7">
       <div className="border-2 border-black col-span-1 p-6">
         <p className="font-bold">{recipes.name}</p>
-        <p>Rating: {recipes.avg_rating && recipes.avg_rating.toFixed(2)}</p>
+        <Link to={`/review/${recipes._id}`}>
+            <h5>Rating: {recipes.avg_rating.toFixed(2)}</h5>
+          </Link>
         <div className="flex flex-col">
         {recipes.products && recipes.products.length > 0 && recipes.products.map((product) => (
-          <button className="p-3 rounded-md bg-slate-400 text-white mt-3" onClick={() => setSearchValue(product.name)}>{product.name}</button>
+          <button key={product._id} className="p-3 rounded-md bg-slate-400 text-white mt-3" onClick={() => setSearchValue(product.name)}>{product.name}</button>
         ))}
 
         </div>

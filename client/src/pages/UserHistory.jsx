@@ -25,7 +25,6 @@ export default function UserHistory() {
         toast(`Error ${error}`, { position: "bottom-right" });
       }
     };
-
     getOrders();
   }, []);
 
@@ -43,7 +42,7 @@ export default function UserHistory() {
               </p>
               <p>Status: {order.status}</p>
               <Link to={`/order/${order.order_id}`}>
-                <button className="mt-3 p-2 bg-slate-400 rounded-md">
+                <button className="mt-3 p-2 bg-slate-400 rounded-md" disabled={order.status === "cancelled"}>
                   View Order Details
                 </button>
               </Link>

@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function FoodDetail() {
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
   const [food, setFood] = useState([]);
   const { foodId } = useParams();
   useEffect(() => {
@@ -26,7 +29,7 @@ export default function FoodDetail() {
           <p>{food.description}</p>
           <h2 className="font-bold text-xl">{food.price}</h2>
         </div>
-        <div>
+        <div className="flex flex-col">
           <h3 className="font-bold">Available Recipes:</h3>
           {food.recipes && food.recipes.length > 0 ? (
             food.recipes.map((recipe) => (
@@ -40,6 +43,7 @@ export default function FoodDetail() {
           ) : (
             <p>No recipes available</p>
           )}
+          {user && user.payload.role === "admin" && (<button className="mt-5 bg-slate-500 rounded-lg text-white py-1" onClick={() => navigate(`/admin/addrecipe/${food._id}`)}>Add New Recipe</button>)}
         </div>
       </div>
     </div>

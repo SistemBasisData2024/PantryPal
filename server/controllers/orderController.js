@@ -42,10 +42,10 @@ exports.getSupplierOrders = async (req, res) => {
 exports.getOrderDetails = async (req, res) => {
   const order_id = req.params.orderId;
   try {
-    const orders = await pool.query(
-      "SELECT * FROM orderitem WHERE order_id = $1",
-      [order_id]
-    );
+    const orders = await pool.query({
+      text: "SELECT * FROM orderitem WHERE order_id = $1",
+      values: [order_id],
+    });
     res.status(200).json(orders.rows);
   } catch (error) {
     res.status(500).json({ error: error });
