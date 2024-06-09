@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function ProductDetail({ cart, addToCart }) {
   const [product, setProduct] = useState([]);
@@ -12,7 +13,7 @@ export default function ProductDetail({ cart, addToCart }) {
         const response = await axios.get(`/products/${productId}`);
         setProduct(response.data.payload);
       } catch (error) {
-        console.error(error);
+        toast.error(error);
       }
     };
     getProduct();

@@ -40,7 +40,8 @@ export default function App() {
       location.pathname.startsWith("/order") ||
       location.pathname.startsWith("/payments") ||
       location.pathname.startsWith("/profile") ||
-      location.pathname.startsWith("/rate")
+      location.pathname.startsWith("/rate") ||
+      location.pathname.startsWith("/review")
     );
   };
 

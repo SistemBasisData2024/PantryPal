@@ -57,7 +57,7 @@ exports.addReview = async (req, res) => {
     });
     await newReview.save();
     const updatedRating = await updateRating(entityId, entityType, rating);
-    res.status(200).json({
+    res.status(201).json({
       review: newReview,
       updatedRating: updatedRating,
     });

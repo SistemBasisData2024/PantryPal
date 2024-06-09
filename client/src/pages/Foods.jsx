@@ -39,7 +39,6 @@ export default function Foods() {
         setFoods(response.data);
         setSearchFood(response.data);
         setIsLoading(false);
-        console.log(response.data);
       } catch (error) {
         toast.error(error.message, { position: "bottom-right" });
         setIsLoading(false);

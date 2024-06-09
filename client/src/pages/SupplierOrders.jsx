@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { toast } from "react-toastify";
 
 export default function SupplierOrders() {
   const [orders, setOrders] = useState({});
@@ -18,7 +19,6 @@ export default function SupplierOrders() {
           },
         });
 
-        // Group orders by order_id
         const groupedOrders = response.data.reduce((acc, order) => {
           if (!acc[order.order_id]) {
             acc[order.order_id] = [];
@@ -28,9 +28,8 @@ export default function SupplierOrders() {
         }, {});
 
         setOrders(groupedOrders);
-        console.log(groupedOrders);
       } catch (error) {
-        console.error(error);
+        toast(error);
       } finally {
         setIsLoading(false);
       }

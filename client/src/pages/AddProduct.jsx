@@ -46,8 +46,10 @@ export default function AddProduct() {
         toast.success("Product added successfully!", {
           position: "top-center",
         });
+        setIsLoading(false);
         navigate("/supplier/dashboard");
       } else {
+        setIsLoading(false);
         toast.error(`Failed to add product.`, { position: "top-center" });
       }
     } catch (error) {

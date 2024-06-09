@@ -9,7 +9,6 @@ export default function Login() {
   const { login, isLoading, error } = useLogin();
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("handleLogin clicked", email, password);
     await login(email, password);
   };
   

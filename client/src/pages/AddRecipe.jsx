@@ -37,7 +37,6 @@ export default function AddRecipe() {
   return (
     <div className="flex flex-col items-center p-10">
       <form
-        action="/login"
         method="POST"
         className="w-full flex flex-col items-center"
         onSubmit={handleAddRecipe}

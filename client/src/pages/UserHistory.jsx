@@ -33,9 +33,9 @@ export default function UserHistory() {
       <h2 className="text-2xl font-bold mb-4">Order History</h2>
       {orders.length === 0 && !isLoading && <p>No orders found</p>}
       {!isLoading ? (
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-4 w-full">
           {orders.map((order) => (
-            <div key={order.order_id} className="p-4 border rounded-md">
+            <div key={order.order_id} className="p-4 w-full border rounded-md">
               <h4 className="font-bold">Order ID: {order.order_id}</h4>
               <p>
                 Order Date: {new Date(order.order_date).toLocaleDateString()}

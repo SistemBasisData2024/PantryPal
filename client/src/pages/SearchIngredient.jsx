@@ -29,7 +29,6 @@ export default function SearchIngredient() {
         const response = await axios.get(`/foods/getrecipe/${recipeId}`);
         setRecipes(response.data);
         setSearchValue(response.data.products[0].name);
-        console.log(response.data);
       } catch (error) {
         toast(`Error ${error}`, { position: "bottom-right" });
       }
@@ -55,7 +54,7 @@ export default function SearchIngredient() {
       <div className="border-2 border-black col-span-1 p-6">
         <p className="font-bold">{recipes.name}</p>
         <Link to={`/review/${recipes._id}`}>
-            <h5>Rating: {recipes.avg_rating.toFixed(2)}</h5>
+            <h5>Rating: {Number(recipes.avg_rating).toFixed(2)}</h5>
           </Link>
         <div className="flex flex-col">
         {recipes.products && recipes.products.length > 0 && recipes.products.map((product) => (

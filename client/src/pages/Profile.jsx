@@ -20,7 +20,6 @@ export default function Profile() {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        console.log(response.data);
         setProfile(response.data.rows[0]);
       } catch (error) {
         toast.error(error.message);

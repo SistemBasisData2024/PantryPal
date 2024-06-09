@@ -52,7 +52,7 @@ export default function OrderDetail() {
             <p>Product: {order.product_id}</p>
             <p>Quantity: {order.quantity}</p>
             {}
-            <button className='text-white bg-amber-500 rounded-lg mt-3' onClick={() => navigate("/rate/" + order.order_id)}>Rate</button>
+            <button className='text-white bg-amber-500 rounded-lg mt-3' onClick={() => navigate("/rate/" + order.product_id)}>Rate</button>
           </div>
         ))
       ) : (

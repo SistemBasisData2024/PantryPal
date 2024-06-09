@@ -13,7 +13,6 @@ export default function FoodDetail() {
       try {
         const response = await axios.get(`/foods/${foodId}`);
         setFood(response.data);
-        console.log(response.data);
       } catch (error) {}
     };
     getFood();

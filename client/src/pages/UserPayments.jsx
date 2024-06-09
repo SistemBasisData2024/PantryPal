@@ -33,7 +33,6 @@ export default function UserPayments() {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        console.log(response.data);
         setPayments(response.data.payload.rows);
         setIsLoading(false);
       } catch (error) {

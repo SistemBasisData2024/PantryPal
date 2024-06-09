@@ -12,7 +12,6 @@ export default function Reviews() {
       try {
         const response = await axios.get("/reviews/" + entityId);
         setReviews(response.data);
-        console.log(response.data);
       } catch (error) {
         toast.error(error);
       }

@@ -10,7 +10,6 @@ export default function Register() {
   const { register, isLoading, error } = useRegister();
   const handleRegister = async (e) => {
     e.preventDefault();
-    console.log("handleRegister: ", name, email, password, role);
     await register(name, email, password, role);
   };
   

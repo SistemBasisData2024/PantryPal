@@ -39,7 +39,6 @@ export default function OrderItem() {
   };
   const handleCancel = async () => {
     try {
-      console.log("clicked");
       const response = await axios.put(
         `/orders/cancelorder/${orderId}`,
         {},
@@ -50,7 +49,6 @@ export default function OrderItem() {
           },
         }
       );
-      console.log(response);
       response.status === 200 ? toast.success("Order Cancelled") : toast("Failed");
     } catch (error) {
       toast.error(error.message);
@@ -68,7 +66,6 @@ export default function OrderItem() {
       });
       setIsLoading(false);
       setOrder(response.data.rows[0]);
-      console.log("order: ", response.data.rows[0]);
     };
     const getOrderAddress = async () => {
       setIsLoading(true);

@@ -44,7 +44,6 @@ export default function UpdateFood() {
         setDescription(response.data.description);
         setCuisine(response.data.cuisine);
         setImage(response.data.image);
-        console.log(response.data);
       } catch (error) {}
     };
     getFood();

@@ -56,7 +56,6 @@ export default function UpdateProduct() {
         setPrice(response.data.payload.price);
         setType(response.data.payload.type);
         setImage(response.data.payload.image);
-        console.log(response.data.payload);
       } catch (error) {}
     };
     getProduct();

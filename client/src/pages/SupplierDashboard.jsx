@@ -39,7 +39,6 @@ export default function SupplierDashboard() {
         setProducts(response.data);
         setProductSearch(response.data);
         setIsLoading(false);
-        console.log(response.data);
       } catch (error) {
         setIsLoading(false);
         toast(`Error ${error}`, { position: "bottom-right" });

@@ -35,7 +35,6 @@ export default function Home({ cart, setCart }) {
         setProducts(response.data);
         setProductSearch(response.data);
         setIsLoading(false);
-        console.log(response.data);
       } catch (error) {
         setIsLoading(false);
         toast.error(`Error: ${error.message}`, { position: "bottom-right" });
