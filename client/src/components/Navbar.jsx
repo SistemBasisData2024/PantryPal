@@ -4,7 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 import CartDropdown from "./CartDropdown";
 
-export default function Navbar({ cart, removeFromCart }) {
+export default function Navbar() {
   const { user } = useAuthContext();
   const { logout } = useLogout();
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -28,12 +28,9 @@ export default function Navbar({ cart, removeFromCart }) {
             <div className="relative">
               <button onClick={toggleDropdown} className="mx-6 text-xl">
                 <ion-icon name="cart-outline"></ion-icon>
-                <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs ml-2">
-                  {cart && cart.length}
-                </span>
               </button>
               {dropdownVisible && (
-                <CartDropdown cart={cart} removeFromCart={removeFromCart} />
+                <CartDropdown />
               )}
             </div>
           )}

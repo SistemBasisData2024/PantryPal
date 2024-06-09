@@ -2,14 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAddToCart } from "../hooks/useAddCart";
 
 export default function SearchIngredient() {
   const { recipeId } = useParams();
   const [products, setProducts] = useState([]);
+  const { addToCart, isLoading } = useAddToCart();
   const [recipes, setRecipes] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [productSearch, setProductSearch] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isWaiting, setIsWaiting] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -17,9 +19,9 @@ export default function SearchIngredient() {
         const response = await axios.get("/products");
         setProducts(response.data);
         setProductSearch(response.data);
-        setIsLoading(false);
+        setIsWaiting(false);
       } catch (error) {
-        setIsLoading(false);
+        setIsWaiting(false);
         toast(`Error ${error}`, { position: "bottom-right" });
       }
     };
@@ -45,13 +47,17 @@ export default function SearchIngredient() {
     setProductSearch(filteredData);
   }, [searchValue, products]);
 
-  const addToCart = () => {
-    // Implement addToCart functionality
+  const handleAddToCart = async (product) => {
+    try {
+      await addToCart(product);
+    } catch(error) {
+      toast.error(error.message)
+    }
   };
 
   return (
-    <div className="grid grid-cols-7">
-      <div className="border-2 border-black col-span-1 p-6">
+    <div className="grid grid-cols-6">
+      <div className="col-span-1 p-6">
         <p className="font-bold">{recipes.name}</p>
         <Link to={`/review/${recipes._id}`}>
             <h5>Rating: {Number(recipes.avg_rating).toFixed(2)}</h5>
@@ -63,9 +69,9 @@ export default function SearchIngredient() {
 
         </div>
       </div>
-      <div className="col-span-6">
+      <div className="col-span-5">
         <div className="grid grid-cols-4 px-32 py-5">
-          {isLoading ? (
+          {isLoading && isWaiting ? (
             <p>Loading...</p>
           ) : productSearch.length === 0 ? (
             <p>No products available</p>
@@ -88,7 +94,7 @@ export default function SearchIngredient() {
                 </Link>
                 <button
                   className="mt-3 p-2 bg-slate-400 rounded-md"
-                  onClick={addToCart}
+                  onClick={() => handleAddToCart({product_id: product.product_id, seller_id: product.seller_id})}
                 >
                   Add to cart
                 </button>
