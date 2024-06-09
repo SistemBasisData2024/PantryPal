@@ -24,6 +24,7 @@ PantryPal is an E-commerce application serving as a platform for selling food in
 </div>
 
 **FLOWCHART**
+
 ![Flowchart (1)](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/f13310d3-3a8e-437d-8d31-1018b07907c7)
 
 **UML**
