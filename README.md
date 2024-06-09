@@ -25,10 +25,12 @@ PantryPal is an E-commerce application serving as a platform for selling food in
 </div>
 
 **FLOWCHART**
+
 ![Flowchart (1)](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/f13310d3-3a8e-437d-8d31-1018b07907c7)
 
 **UML**
-![image](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/0c75843e-f340-4171-834d-a9af02781e2e)
+
+![UML](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/97b7c360-c1d1-4b27-8e39-5c7bb7bffd9f)
 
 # :computer: Installation Guide
 
@@ -71,7 +73,16 @@ git clone https://github.com/SistemBasisData2024/PantryPal.git
    npm run start
   ```
 
-__Postman API Endpoints__
+# 💻 Progress Report:
+## First Meeting
+![messageImage_1717212834432](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/74c53241-4036-41ea-ad9a-2e90605cca41)
+
+## Second Meeting
+![messageImage_1717212834432](https://github.com/SistemBasisData2024/PantryPal/assets/127288612/bfe98562-52b3-46b6-a3b5-f02bd41c1d4b)
+
+
+
+## Postman API Endpoints
 
 | API | Link    |
 | :---:   | :---: | 
