@@ -66,7 +66,8 @@ export default function AddFood() {
             onChange={(e) => setCuisine(e.target.value)}
             className="rounded-lg my-2 border-2"
           >
-            <option value="Italian">Italian</option>
+            <option value="Choose one">- Choose one -</option>
+            <option value="Italian">Italian</option>            
             <option value="French">French</option>
             <option value="Indonesian">Indonesian</option>
             <option value="Korean">Korean</option>

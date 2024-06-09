@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useAddToCart } from "../hooks/useAddCart";
 
 export default function Home({ cart, setCart }) {
+  
   const [searchValue, setSearchValue] = useState("");
   const [products, setProducts] = useState([]);
   const [productSearch, setProductSearch] = useState(products);
@@ -31,6 +32,7 @@ export default function Home({ cart, setCart }) {
     } catch(error) {
 
     }
+    
   };
 
   useEffect(() => {
